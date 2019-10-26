@@ -7,13 +7,13 @@ class TaskListItem extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image src={this.props.user.url}/>
+                <Image src={this.props.pinUrl}/>
 
                 <View>
                     <Text>{this.props.name}</Text>
                     <Text>{this.props.category}</Text>
                     <Text>{this.props.description}</Text>
-                    <Text>{this.props.user.name}</Text>
+                    <Text>{this.props.pinName}</Text>
                 </View>
             </View>
         );

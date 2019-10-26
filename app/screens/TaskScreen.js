@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from "axios/index"
 import {SafeAreaView, FlatList, StyleSheet, Text} from 'react-native'
+import TaskListItem from "../components/TaskListItem";
 
 class TaskScreen extends React.Component {
 
@@ -19,7 +20,7 @@ class TaskScreen extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('/tasks')
+        axios.get('https://jitterbug-service.herokuapp.com/task/location/Manchester')
             .then(function (response) {
                 // handle success
                 this.setState({
@@ -42,7 +43,13 @@ class TaskScreen extends React.Component {
                 <FlatList
                     data={this.state.tasks}
                     renderItem={({ item }) => (
-                        <Text>{item.name}</Text>
+                        <TaskListItem
+                            pinUrl={item.user.url}
+                            pinName={item.user.name}
+                            category={item.user.category}
+                            description={item.user.description}
+                            pinName={item.user.name}
+                        />
                     )}
                     keyExtractor={item => item.id}
                 />
