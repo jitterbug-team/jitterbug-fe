@@ -17,13 +17,13 @@ const TabNavigator = createBottomTabNavigator({
     tabBarIcon: ({ focused, horizontal, tintColor }) => {
       const { routeName } = navigation.state;
       if (routeName === 'Task') {
-        return <FontAwesome5 name="list" color={focused ? Global.COLOUR.RED : Global.COLOUR.GREY} size={"24"}/>
+        return <FontAwesome5 name="list" color={focused ? Global.COLOUR.RED : Global.COLOUR.GREY} size={24}/>
       }
       else if (routeName === 'Settings') {
-        return <FontAwesome5 name="cog" color={focused ? Global.COLOUR.RED : Global.COLOUR.GREY} size={"24"}/>
+        return <FontAwesome5 name="cog" color={focused ? Global.COLOUR.RED : Global.COLOUR.GREY} size={24}/>
       }
       else if (routeName === 'Profile') {
-        return <FontAwesome5 name="user" color={focused ? Global.COLOUR.RED : Global.COLOUR.GREY} size={"24"}/>
+        return <FontAwesome5 name="user" color={focused ? Global.COLOUR.RED : Global.COLOUR.GREY} size={24}/>
       }
     },
   }),

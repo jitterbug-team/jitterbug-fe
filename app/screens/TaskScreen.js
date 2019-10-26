@@ -6,26 +6,20 @@ import TaskListItem from "../components/TaskListItem";
 class TaskScreen extends React.Component {
 
     state = {
-        tasks: [
-            {
-                name: "abc123"
-            },
-            {
-                name: "abc456"
-            },
-            {
-                name: "abc789"
-            }
-        ]
+        tasks: []
     }
 
     componentDidMount() {
+        self = this
         axios.get('https://jitterbug-service.herokuapp.com/task/location/Manchester')
             .then(function (response) {
                 // handle success
-                this.setState({
-                    tasks: response.data.tasks
+                console.log(response)
+
+                self.setState({
+                    tasks: response.data
                 })
+
             })
             .catch(function (error) {
                 // handle error
@@ -44,11 +38,11 @@ class TaskScreen extends React.Component {
                     data={this.state.tasks}
                     renderItem={({ item }) => (
                         <TaskListItem
-                            pinUrl={item.user.url}
-                            pinName={item.user.name}
-                            category={item.user.category}
-                            description={item.user.description}
-                            pinName={item.user.name}
+                            pinUrl={item.personInNeed.image}
+                            category={item.category}
+                            description={item.description}
+                            pinFirstName={item.personInNeed.firstName}
+                            pinLastName={item.personInNeed.lastName}
                         />
                     )}
                     keyExtractor={item => item.id}
