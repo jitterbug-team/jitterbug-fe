@@ -14,7 +14,7 @@ class TaskScreen extends React.Component {
         axios.get('https://jitterbug-service.herokuapp.com/task/location/Manchester')
             .then(function (response) {
                 // handle success
-                console.log(response)
+                //console.log(response)
 
                 self.setState({
                     tasks: response.data
@@ -43,6 +43,7 @@ class TaskScreen extends React.Component {
                             description={item.description}
                             pinFirstName={item.personInNeed.firstName}
                             pinLastName={item.personInNeed.lastName}
+
                         />
                     )}
                     keyExtractor={item => item.id}

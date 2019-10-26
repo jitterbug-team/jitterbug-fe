@@ -7,9 +7,20 @@ import {FontAwesome5} from "react-native-vector-icons"
 import Global from "./app/util/Globals"
 import ProfileScreen from "./app/screens/ProfileScreen";
 import SettingsScreen from "./app/screens/SettingsScreen";
+import { createStackNavigator } from 'react-navigation-stack';
+import TaskDetails from "./app/screens/TaskDetails";
+
+const TaskNavigator = createStackNavigator({
+  Task: {
+    screen: TaskScreen
+  },
+  TaskDetails:{
+    screen: TaskDetails
+  }
+});
 
 const TabNavigator = createBottomTabNavigator({
-  Task: TaskScreen,
+  Task: TaskNavigator,
   Profile: ProfileScreen,
   Settings: SettingsScreen
 }, {

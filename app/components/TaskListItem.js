@@ -6,9 +6,8 @@ class TaskListItem extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={styles.container} onPress={() => this.props.onPress()}>
                 <Image src={this.props.pinUrl}/>
-
                 <View>
                     <Text>{this.props.category}</Text>
                     <Text>{this.props.description}</Text>
