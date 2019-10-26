@@ -1,8 +1,8 @@
 import React from 'react';
-
+import {View, Text} from 'react-native'
 class TaskDetails extends React.Component {
     render (){
-        return <div>Hello from TaskDetails</div>
+        return <View><Text>Hello from TaskDetails</Text></View>
     }
 }
 export default TaskDetails

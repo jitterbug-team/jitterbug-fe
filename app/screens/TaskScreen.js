@@ -11,7 +11,7 @@ class TaskScreen extends React.Component {
 
     componentDidMount() {
         self = this
-        axios.get('https://jitterbug-service.herokuapp.com/task/location/Manchester')
+        axios.get('https://jitterbug-service.herokuapp.com/task/location/test')
             .then(function (response) {
                 // handle success
                 //console.log(response)
@@ -30,6 +30,11 @@ class TaskScreen extends React.Component {
             });
     }
 
+    onTaskListItemPressed = () => {
+        console.log('hello')
+        this.props.navigation.navigate('TaskDetails')
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -43,7 +48,7 @@ class TaskScreen extends React.Component {
                             description={item.description}
                             pinFirstName={item.personInNeed.firstName}
                             pinLastName={item.personInNeed.lastName}
-
+                            onTaskListItemPressed={this.onTaskListItemPressed}
                         />
                     )}
                     keyExtractor={item => item.id}
