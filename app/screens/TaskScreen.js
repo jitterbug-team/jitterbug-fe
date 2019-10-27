@@ -40,7 +40,7 @@ class TaskScreen extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <ScrollView style={{ flex: 1, backgroundColor: 'rgba(47,44,60,1)' }} >
+                <ScrollView style={{ flex: 1}} >
                 <FlatList
                     data={this.state.tasks}
                     renderItem={({ item }) => (
