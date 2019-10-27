@@ -9,10 +9,12 @@ class TaskListItem extends React.Component {
     }
 
     getFormattedExpiry() {
-
     }
 
+
+
     render() {
+        console.log('this.props.showStatus', this.props.showStatus)
         return (
             <TouchableOpacity style={styles.container} onPress={this.onTaskListItemPressed}>
                 <Image style={{width: 50, height: 50, borderRadius: 25, marginRight: 10}}
@@ -31,7 +33,15 @@ class TaskListItem extends React.Component {
                         <View style={styles.categoryContainer}>
                             <Text style={styles.categoryText}>{this.props.category}</Text>
                         </View>
-                        <Text style={styles.expiryText}>Expires in 3 days</Text>
+                        <Text style={styles.expiryText}> {this.props.showStatus ? null : 'Expires in 3 days'}</Text>
+                        <Text style={styles.expiryText}> {this.props.showStatus ? null : `0.${Math.floor(Math.random() * 6) + 1} mi away`}</Text>
+                    </View>
+
+                    <View style={styles.categoryExpiryContainer}>
+                        <View style={styles.categoryContainer}>
+                            <Text style={styles.categoryText}>{this.props.category}</Text>
+                        </View>
+                        <Text style={styles.expiryText}> { this.props.showStatus && this.props.completed ? 'Completed' : this.props.showStatus ? "In Progress" : null} </Text>
                     </View>
 
                 </View>
@@ -98,7 +108,14 @@ const styles = StyleSheet.create({
     expiryText: {
         alignSelf: 'center',
         textAlign: 'right',
-        marginLeft: 10
+        marginLeft: 30
+    },
+
+    statusText: {
+        alignSelf: 'center',
+        textAlign: 'right',
+        marginLeft: 60,
+        marginTop: 20
     }
 });
 

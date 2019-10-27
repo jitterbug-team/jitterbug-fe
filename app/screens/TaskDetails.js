@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button } from 'react-native-elements';
 import { View, Dimensions, StyleSheet, ScrollView, Text, Image } from 'react-native';
 import Toast from 'react-native-root-toast';
+import { withNavigationFocus } from 'react-navigation';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -10,6 +11,12 @@ const IMAGE_SIZE = SCREEN_WIDTH - 280;
 
 const CATEGORY_IMAGE_WIDTH = SCREEN_WIDTH - 20;
 const CATEGORY_IMAGE_HEIGHT = SCREEN_HEIGHT - 440;
+
+var addresses = [
+    ' 23 Oxford Road',
+    ' 289 Chester Road',
+    ' 123 First Street'
+];
 
 class TaskDetails extends React.Component {
 
@@ -28,18 +35,11 @@ class TaskDetails extends React.Component {
         const id = this.props.navigation.state.params.taskId;
         self = this
         axios.get(`https://jitterbug-service.herokuapp.com/task/${id}`)
-            .then(function (response) {
+            .then((response) => {
                 self.setState({
                     task: response.data
                 })
             })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .finally(function () {
-                // always executed
-            });
     }
 
     getHelperId = () => {
@@ -56,9 +56,12 @@ class TaskDetails extends React.Component {
                 console.log(response.status)
                 console.log(response.data)
                 if(response.status === 200)
+                {
                     this.setState({
                         acceptButton: true
-                })
+                    })
+                    this.props.navigation.state.params.onGoBack()
+                }
             }).then(()=>{
             this.state.acceptButton ?
                 Toast.show('Task accepted', {
@@ -87,10 +90,12 @@ class TaskDetails extends React.Component {
             .then((response) =>{
                 console.log(response.status)
                 console.log(response.data)
-                if(response.status === 200)
+                if(response.status === 200){
                     this.setState({
                         acceptButton: false
                     })
+                    this.props.navigation.state.params.onGoBack()
+                }
             }).then(()=>{
             !this.state.acceptButton ?
                 Toast.show('Task declined', {
@@ -113,18 +118,20 @@ class TaskDetails extends React.Component {
     }
 
     render (){
+        let randomNumber = Math.floor(Math.random()*addresses.length);
+        const address = addresses[randomNumber]
         //console.log(this.state.task)
         const {id, name, description, categoryImage, personInNeed} = this.state.task
         const {firstName, image} = personInNeed ? personInNeed : ''
         return (
             <ScrollView style={styles.container} >
-                <View  style={{ flex: 1, backgroundColor: 'rgba(47,44,60,1)' }}>
+                <View  style={{ flex: 1, backgroundColor: 'white' }}>
                     <View style={{alignItems: 'center'}}>
                         <Text
                             style={{
                                 flex: 1,
                                 fontSize: 26,
-                                color: 'white',
+                                color: 'black',
                                 fontWeight: 'bold'
                             }}
                         >
@@ -178,7 +185,7 @@ class TaskDetails extends React.Component {
                                 style={{
                                     flex: 1,
                                     fontSize: 29,
-                                    color: 'white',
+                                    color: 'black',
                                 }}
                             >
                                 {firstName}
@@ -192,16 +199,24 @@ class TaskDetails extends React.Component {
                                     marginTop: 5,
                                 }}
                             >
-                                0.8 mi
                             </Text>
                         </View>
                     </View>
+                    <Text
+                        style={{
+                            flexDirection: 'row',
+                            fontSize: 20,
+                            color: 'black',
+                        }}
+                    >
+                        {`${address}, 0.${Math.floor(Math.random() * 6) + 1} mi away`}
+                    </Text>
                     <View  style={{ alignItems: 'center', marginTop:20}}>
                         <Text
                             style={{
                                 alignItems: 'center',
                                 flex: 2,
-                                color: 'white',
+                                color: 'black',
                                 fontWeight: 'bold',
                                 fontSize: 20,
                                 borderColor: 'black',
@@ -212,29 +227,26 @@ class TaskDetails extends React.Component {
                         </Text>
                     </View>
                     <View style={[styles.buttonsContainer, { marginBottom: 20 }]}>
-                        {
-                            !this.state.acceptButton ?
-                                <Button
-                                    title="Accept"
-                                    buttonStyle={{ backgroundColor: 'rgba(127, 220, 103, 1)' }}
-                                    containerStyle={{ height: 40 }}
-                                    titleStyle={{ color: 'white', marginHorizontal: 20 }}
-                                    onPress={()=> this.acceptTaskButton(id)}
-                                />
-                                :
-                                <Button
-                                    title="Decline"
-                                    buttonStyle={{ backgroundColor: 'rgba(214, 61, 57, 1)' }}
-                                    containerStyle={{ height: 40 }}
-                                    type="outline"
-                                    titleStyle={{ color: 'white', marginHorizontal: 20 }}
-                                    onPress={()=> this.declineTaskButton(id)}
-                                />
-                        }
-
-
-
-                    </View>
+                            {
+                                !this.state.acceptButton && !this.props.navigation.state.params.accepted?
+                                    <Button
+                                        title="Accept"
+                                        buttonStyle={{ backgroundColor: 'rgba(127, 220, 103, 1)' }}
+                                        containerStyle={{ height: 40 }}
+                                        titleStyle={{ color: 'white', marginHorizontal: 20 }}
+                                        onPress={()=> this.acceptTaskButton(id)}
+                                    />
+                                    :
+                                    <Button
+                                        title="Decline"
+                                        buttonStyle={{ backgroundColor: 'rgba(214, 61, 57, 1)' }}
+                                        containerStyle={{ height: 40 }}
+                                        type="outline"
+                                        titleStyle={{ color: 'white', marginHorizontal: 20 }}
+                                        onPress={()=> this.declineTaskButton(id)}
+                                    />
+                            }
+                        </View>
                 </View>
             </ScrollView>
         );
@@ -242,11 +254,11 @@ class TaskDetails extends React.Component {
 }
 
 
-export default TaskDetails
+export default withNavigationFocus(TaskDetails)
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
+        backgroundColor: 'black',
     },
     contentView: {
         flex: 1,
@@ -271,7 +283,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     nameHeader: {
-        color: 'white',
+        color: 'black',
         fontSize: 22
     },
 });

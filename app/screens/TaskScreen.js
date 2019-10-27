@@ -4,6 +4,8 @@ import {SafeAreaView, FlatList, StyleSheet, Text, ScrollView} from 'react-native
 import TaskListItem from "../components/TaskListItem";
 import { withNavigation } from 'react-navigation';
 
+
+
 class TaskScreen extends React.Component {
 
     static navigationOptions = {
@@ -12,6 +14,16 @@ class TaskScreen extends React.Component {
 
     state = {
         tasks: []
+    }
+
+    refreshPage = () =>{
+        axios.get('https://jitterbug-service.herokuapp.com/task/location/Manchester')
+            .then((response) => {
+                console.log(response.data)
+                this.setState({
+                    tasks: response.data
+                })
+            })
     }
 
     componentDidMount() {
@@ -34,7 +46,10 @@ class TaskScreen extends React.Component {
     }
 
     onTaskListItemPressed = (id) => {
-        this.props.navigation.navigate('TaskDetails', {taskId: id})
+        this.props.navigation.navigate('TaskDetails', {
+            taskId: id,
+            onGoBack: () => this.refreshPage()
+        })
     }
 
     render() {
@@ -48,6 +63,7 @@ class TaskScreen extends React.Component {
                             id={item.id}
                             pinUrl={item.personInNeed.image}
                             category={item.category}
+                            showStatus={false}
                             description={item.description}
                             pinFirstName={item.personInNeed.firstName}
                             pinLastName={item.personInNeed.lastName}

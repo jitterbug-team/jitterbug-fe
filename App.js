@@ -18,13 +18,16 @@ const TaskNavigator = createStackNavigator({
         TaskDetails: {
             screen: TaskDetails
         }
-
+    });
+const ProfileNavigator = createStackNavigator({
+    Profile: {
+        screen: ProfileScreen
     }
-);
+});
 
 const TabNavigator = createBottomTabNavigator({
     Task: TaskNavigator,
-    Profile: ProfileScreen,
+    Profile: ProfileNavigator,
     Settings: SettingsScreen
 }, {
     defaultNavigationOptions: ({navigation}) => ({
