@@ -1,7 +1,8 @@
 import React from 'react'
 import axios from "axios/index"
-import {SafeAreaView, FlatList, StyleSheet, Text} from 'react-native'
+import {SafeAreaView, FlatList, StyleSheet, Text, ScrollView} from 'react-native'
 import TaskListItem from "../components/TaskListItem";
+import { withNavigation } from 'react-navigation';
 
 class TaskScreen extends React.Component {
 
@@ -39,6 +40,7 @@ class TaskScreen extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
+                <ScrollView style={{ flex: 1, backgroundColor: 'rgba(47,44,60,1)' }} >
                 <FlatList
                     data={this.state.tasks}
                     renderItem={({ item }) => (
@@ -54,6 +56,7 @@ class TaskScreen extends React.Component {
                     )}
                     keyExtractor={item => item.id}
                 />
+                </ScrollView>
             </SafeAreaView>
         );
     }
@@ -65,4 +68,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default TaskScreen
+export default withNavigation(TaskScreen)

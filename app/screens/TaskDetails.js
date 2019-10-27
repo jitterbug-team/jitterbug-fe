@@ -14,13 +14,12 @@ class TaskDetails extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
-            //title: navigation.getParam('title', ''),
             title: 'Task',
         };
     };
 
     state = {
-        tasks: []
+        task: []
     }
 
     componentDidMount() {
@@ -29,7 +28,7 @@ class TaskDetails extends React.Component {
         axios.get(`https://jitterbug-service.herokuapp.com/task/${id}`)
             .then(function (response) {
                 self.setState({
-                    tasks: response.data
+                    task: response.data
                 })
             })
             .catch(function (error) {
@@ -43,7 +42,7 @@ class TaskDetails extends React.Component {
 
     render (){
         console.log(this.state.tasks)
-        const {name, description, categoryImage, personInNeed} = this.state.tasks
+        const {name, description, categoryImage, personInNeed} = this.state.task
         const {firstName, image} = personInNeed ? personInNeed : ''
         return (
             <ScrollView style={styles.container} >

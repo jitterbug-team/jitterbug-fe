@@ -18,11 +18,11 @@ class TaskListItem extends React.Component {
                 <Image style={{width: 60, height: 60, borderRadius: 30, marginRight: 10}}
                        source={{uri: this.props.pinUrl}}/>
 
-                <View>
+                <View style={{marginBottom:100}}>
                     <Text style={styles.descriptionText}>{this.props.description}</Text>
 
                     <View style={styles.nameContainer}>
-                        <Text>Requested by </Text>
+                        <Text style={styles.firstNameText}>Requested by </Text>
                         <Text style={styles.firstNameText}>{this.props.pinFirstName}</Text>
                         <Text style={styles.lastNameText}>{this.props.pinLastName}</Text>
                     </View>
@@ -31,7 +31,7 @@ class TaskListItem extends React.Component {
                         <View style={styles.categoryContainer}>
                             <Text style={styles.categoryText}>{this.props.category}</Text>
                         </View>
-                        <Text>Expires in {this.getFormattedExpiry()}</Text>
+                        <Text style={styles.categoryContainer} >Expires in {this.getFormattedExpiry()}</Text>
                     </View>
 
                 </View>
@@ -56,15 +56,25 @@ const styles = StyleSheet.create({
 
     firstNameText: {
         marginRight: 4,
-        fontStyle: 'italic'
+        fontStyle: 'italic',
+        color: Global.COLOUR.WHITE,
+    },
+
+    expiryText: {
+        marginRight: 4,
+        fontStyle: 'italic',
+        color: Global.COLOUR.WHITE,
     },
 
     lastNameText: {
-        fontStyle: 'italic'
+        fontStyle: 'italic',
+        color: Global.COLOUR.WHITE
     },
 
     categoryContainer: {
-        width: 90,
+        marginTop: 10,
+        marginRight: 20,
+        width: 110,
         height: 25,
         padding: 4,
         backgroundColor: Global.COLOUR.RED,
@@ -72,7 +82,7 @@ const styles = StyleSheet.create({
     },
 
     categoryText: {
-        color: Global.COLOUR.WHITE,
+        color: Global.COLOUR.BLUE,
         textAlign: 'center',
         fontSize: 14,
         fontWeight: 'bold'
@@ -81,7 +91,7 @@ const styles = StyleSheet.create({
     descriptionText: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: Global.COLOUR.DARK_GREY,
+        color: Global.COLOUR.WHITE,
         marginBottom: 2
     },
 

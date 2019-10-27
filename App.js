@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createAppContainer } from 'react-navigation';
+import { StyleSheet} from 'react-native';
+import {createAppContainer,} from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import TaskScreen from "./app/screens/TaskScreen"
 import {FontAwesome5} from "react-native-vector-icons"
